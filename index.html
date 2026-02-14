@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jeyli Fiorella | Nuestra Historia ❤️</title>
+
+    <!-- Fuentes de Lujo -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <!-- Librerías Profesionales -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #9b1c31;
+            /* Rojo Vino Profundo */
+            --secondary: #d4a373;
+            /* Dorado suave */
+            --bg: #fffaf0;
+            /* Crema Floral */
+            --text: #4a4a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- PANTALLA DE CARGA (INTRO CON FECHA) --- */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .loader-heart {
+            font-size: 3rem;
+            animation: pulse 1s infinite;
+            margin-bottom: 20px;
+        }
+
+        .loader-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .loader input {
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .loader input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .loader button {
+            background: #fff;
+            color: var(--primary);
+            border: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .loader button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- ESTILOS RESPONSIVOS (CELULAR) --- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            /* Desktop */
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .emotional-text {
+            font-size: 1.5rem;
+            /* Desktop */
+            line-height: 1.6;
+            max-width: 600px;
+            font-family: 'Playfair Display', serif;
+            color: #333;
+            padding: 0 20px;
+        }
+
+        /* AJUSTES MÓVILES */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            /* Más pequeño en celular */
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .emotional-text {
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+
+            /* Texto legible, no gigante */
+
+            section {
+                padding: 30px 15px;
+                min-height: 90vh;
+            }
+
+            .swiper {
+                width: 100%;
+                height: 400px;
+            }
+
+            .swiper-slide {
+                width: 260px;
+                height: 380px;
+            }
+        }
+
+        /* --- SECCIONES PRINCIPALES --- */
+        section {
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Hero */
+        .hero {
+            background: radial-gradient(circle, #fffaf0 0%, #ffe4e1 100%);
+            text-align: center;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            font-size: 2rem;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+        }
+
+        /* Text Section */
+        .text-section {
+            background: #fff;
+            text-align: center;
+        }
+
+        .emotional-text span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: #1a0505;
+            color: #fff;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            border-radius: 10px;
+            filter: brightness(0.6);
+            transition: 0.5s;
+            transform: scale(0.9);
+        }
+
+        .swiper-slide-active {
+            filter: brightness(1);
+            transform: scale(1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Letter Section */
+        .letter-section {
+            background: var(--bg);
+            text-align: center;
+            padding-bottom: 100px;
+        }
+
+        .big-button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1rem;
+            font-family: 'Playfair Display', serif;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(155, 28, 49, 0.4);
+            transition: all 0.3s;
+        }
+
+        .big-button:hover {
+            transform: translateY(-5px);
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.5s;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 5px;
+            text-align: left;
+            position: relative;
+            border: 1px solid #eee;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--primary);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .letter-body p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        /* CORAZONES DE FONDO */
+        .floating-heart {
+            position: fixed;
+            color: var(--primary);
+            opacity: 0.1;
+            animation: float linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADER INTERACTIVO -->
+    <div class="loader" id="introLoader">
+        <div class="loader-heart">❤️</div>
+        <div class="loader-input-container">
+            <label style="font-family:'Playfair Display'; font-size:0.9rem;">Para continuar, escribe tu fecha de
+                nacimiento:</label>
+            <input type="text" id="bdayInput" placeholder="DD/MM/AAAA">
+            <button onclick="unlockGift()">Ver Regalo</button>
+        </div>
+    </div>
+
+    <!-- FONDO -->
+    <div id="hearts-container"></div>
+
+    <!-- PORTADA -->
+    <section class="hero">
+        <h1 class="gsap-title">Para<br>Jeyli Fiorella</h1>
+        <p class="subtitle gsap-subtitle">Nuestra historia, nuestro caos, nuestro amor.</p>
+        <div class="scroll-down"><i class="fa-solid fa-chevron-down"></i></div>
+    </section>
+
+    <!-- TEXTO -->
+    <section class="text-section">
+        <div class="emotional-text gsap-text">
+            "Dicen que las relaciones perfectas no existen.<br><br>
+            Y tienen razón. <br>
+            <span>Nosotros somos la prueba.</span><br><br>
+            Discutimos, nos complicamos, a veces quiero huir... pero siempre, SIEMPRE termino corriendo hacia ti."
+        </div>
+    </section>
+
+    <!-- CARRUSEL -->
+    <section class="gallery-section">
+        <h2 style="font-family:'Playfair Display'; margin-bottom:30px; font-size:1.5rem; color:#fff;">Nuestros Momentos
+        </h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- FOTOS desde carpeta 'fotos' -->
+                <div class="swiper-slide"><img src="fotos/20250624_151308.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+1'"></div>
+                <div class="swiper-slide"><img src="fotos/20250706_135909.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+2'"></div>
+                <div class="swiper-slide"><img src="fotos/20250801_120551.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+3'"></div>
+                <div class="swiper-slide"><img src="fotos/20250801_125049.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+4'"></div>
+                <div class="swiper-slide"><img src="fotos/8c35535293e602f2bb2fb63eaab1ff3e_0.jpeg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+5'"></div>
+                <div class="swiper-slide"><img src="fotos/DSC_0025.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+6'"></div>
+                <div class="swiper-slide"><img src="fotos/DSC_0064.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+7'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG-20250801-WA0039.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+8'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG-20251004-WA0031.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+9'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_1475.HEIC"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=HEIC+Formato'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_1628.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+11'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_1653.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+12'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_1746.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+13'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_1782.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+14'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_20230826_203214.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+15'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_20241119_205928.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+16'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_20241121_164638.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+17'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_20241121_164945.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+18'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_20250125_184840.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+19'"></div>
+                <div class="swiper-slide"><img src="fotos/IMG_E1637.JPG"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+20'"></div>
+                <div class="swiper-slide"><img src="fotos/beauty_20230605171636.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+21'"></div>
+                <div class="swiper-slide"><img src="fotos/foto_retocada_final.png"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+22'"></div>
+                <div class="swiper-slide"><img src="fotos/s.jpg"
+                        onerror="this.src='https://via.placeholder.com/300x500/333/fff?text=Foto+23'"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARTA -->
+    <section class="letter-section">
+        <h2 style="font-family:'Playfair Display'; margin-bottom:20px; font-size:1.5rem; color:var(--primary);">Una
+            última cosa...</h2>
+        <p style="margin-bottom:40px; color:#666; font-size:0.9rem;">Tengo algo importante que decirte.</p>
+        <button class="big-button" onclick="openModal()">LEER CARTA 💌</button>
+    </section>
+
+    <!-- MODAL FINAL -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <div class="letter-body">
+                <p><strong>Hola mi amor,</strong></p>
+                <p>Probablemente esperabas un poema perfecto o palabras de cuento de hadas. Pero tú y yo sabemos que eso
+                    no somos nosotros.</p>
+                <p>Nosotros somos <span style="color:#9b1c31; font-weight:bold;">amor real y complicado</span>. Somos
+                    dos personas tercas intentando construir algo en un mundo difícil.</p>
+                <p>Pero quiero que sepas que elijo nuestras peleas y nuestras reconciliaciones mil veces antes que una
+                    paz aburrida con cualquier otra persona.</p>
+                <p>Eres mi dolor de cabeza favorito y el amor de mi vida.</p>
+            </div>
+            <div class="signature">Tu Celsito</div>
+        </div>
+    </div>
+
+    <!-- MÚSICA DE FONDO -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+        <source src="https://cdns-preview-d.dzcdn.net/stream/c-deda7faaca43ebf4f7775e2609466558-1.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // FUNCIÓN DESBLOQUEAR REGALO
+        function unlockGift() {
+            const input = document.getElementById('bdayInput').value.trim();
+
+            if (input === "") {
+                alert("Por favor, escribe tu fecha especial ❤️");
+                return;
+            }
+
+            // REPRODUCIR MÚSICA
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio prevent: ", e));
+
+            // Animación de salida del loader
+            // Ocultar teclado en movil
+            document.getElementById('bdayInput').blur();
+
+            const tl = gsap.timeline();
+            tl.to("#introLoader", {
+                y: "-100%",
+                duration: 1.2,
+                ease: "power2.inOut"
+            })
+                .to(".gsap-title", {
+                    y: 0, opacity: 1, duration: 1.5, ease: "power3.out"
+                }, "-=0.5")
+                .to(".gsap-subtitle", {
+                    y: 0, opacity: 1, duration: 1, ease: "power3.out"
+                }, "-=1");
+
+            initScrollAnimations();
+        }
+
+        // SCROLL ANIMATIONS
+        function initScrollAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from(".gsap-text", {
+                scrollTrigger: { trigger: ".text-section", start: "top 85%" },
+                y: 30, opacity: 0, duration: 1.2
+            });
+
+            gsap.from(".swiper", {
+                scrollTrigger: { trigger: ".gallery-section", start: "top 75%" },
+                scale: 0.9, opacity: 0, duration: 1
+            });
+        }
+
+        // CARRUSEL
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 0, stretch: 0, depth: 100, modifier: 2, slideShadows: true,
+            },
+            pagination: { el: ".swiper-pagination" },
+            autoplay: { delay: 3000, disableOnInteraction: false },
+        });
+
+        // MODAL
+        function openModal() { document.querySelector(".modal").classList.add("active"); }
+        function closeModal() { document.querySelector(".modal").classList.remove("active"); }
+
+        // CORAZONES FLOTANTES
+        const container = document.getElementById('hearts-container');
+        for (let i = 0; i < 15; i++) {
+            let h = document.createElement('div');
+            h.innerHTML = "❤️"; h.classList.add('floating-heart');
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 5 + 10) + 's';
+            h.style.animationDelay = (Math.random() * 5) + 's';
+            container.appendChild(h);
+        }
+    </script>
+</body>
+
+</html>
